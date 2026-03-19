@@ -52,7 +52,7 @@ export const listPosts = async (req: Request, res: Response): Promise<void> => {
     .createQueryBuilder("post")
     .leftJoinAndSelect("post.author", "author")
     .leftJoinAndSelect("post.categories", "categories")
-    .orderBy("post.created_at", (req.query.order as "ASC" | "DESC") ?? "DESC")
+    .orderBy("post.createdAt", (req.query.order as "ASC" | "DESC") ?? "DESC")
     .skip(skip)
     .take(limit);
 
@@ -75,11 +75,11 @@ export const listPosts = async (req: Request, res: Response): Promise<void> => {
   }
 
   if (req.query.startDate) {
-    query.andWhere("post.created_at >= :startDate", { startDate: req.query.startDate });
+    query.andWhere("post.createdAt >= :startDate", { startDate: req.query.startDate });
   }
 
   if (req.query.endDate) {
-    query.andWhere("post.created_at <= :endDate", { endDate: req.query.endDate });
+    query.andWhere("post.createdAt <= :endDate", { endDate: req.query.endDate });
   }
 
   const [items, total] = await query.getManyAndCount();
