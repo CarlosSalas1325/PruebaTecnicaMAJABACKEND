@@ -1,0 +1,39 @@
+.topbar {
+  background: #0f1722;
+  color: #fff;
+  border-bottom: 1px solid #1f2b3b;
+}
+
+.topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 64px;
+}
+
+.brand {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+nav a {
+  color: #d7e3f4;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #fff;
+  font-weight: 700;
+}
+
+.content {
+  padding-top: 20px;
+  padding-bottom: 32px;
+}
