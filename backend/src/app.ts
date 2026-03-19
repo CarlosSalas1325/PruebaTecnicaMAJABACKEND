@@ -15,9 +15,22 @@ import { swaggerSpec } from "./docs/swagger";
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  })
+);
 app.use(cors({ origin: env.corsOrigin }));
 app.use(express.json());
+
+app.get("/", (_req: Request, res: Response) => {
+  res.redirect("/api");
+});
+
+app.get("/api", (_req: Request, res: Response) => {
+  res.json({ message: "API is running", status: "ok" });
+});
 
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
@@ -28,6 +41,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", usersRoutes);
+
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({ error: "Not Found", message: `Route ${_req.url} not found` });
+});
 
 app.use(errorMiddleware);
 
