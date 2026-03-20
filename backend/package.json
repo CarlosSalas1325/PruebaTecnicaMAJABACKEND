@@ -8,8 +8,10 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/app.js",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/data-source.ts",
+    "migration:run:prod": "typeorm migration:run -d dist/config/data-source.js",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate src/migrations/InitSchema -d src/config/data-source.ts",
     "seed": "ts-node src/seeds/seed.ts",
+    "seed:prod": "node dist/seeds/seed.js",
     "test": "jest"
   },
   "dependencies": {

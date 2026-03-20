@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import path from "path";
 import { DataSource } from "typeorm";
 import { env } from "./env";
 import { User } from "../modules/users/user.entity";
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
     ? { url: env.databaseUrl, ssl: { rejectUnauthorized: false } }
     : { host: env.db.host, port: env.db.port, username: env.db.user, password: env.db.password, database: env.db.name }),
   entities: [User, Post, Category, Comment],
-  migrations: ["src/migrations/*.ts"],
+  migrations: [path.join(__dirname, "..", "migrations", "*.{ts,js}")],
   synchronize: false,
   logging: false
 });

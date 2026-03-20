@@ -7,10 +7,10 @@ export const env = {
   port: Number(process.env.PORT ?? 3000),
   jwtSecret: process.env.JWT_SECRET ?? "super-secret-jwt-change-me",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? "24h",
-  corsOrigin: process.env.CORS_ORIGIN ?? "http://localhost:4200",
+  corsOrigin: process.env.CORS_ORIGIN ?? "",
   databaseUrl: process.env.DATABASE_URL ?? "",
   db: {
-    host: process.env.DB_HOST ?? "localhost",
+    host: process.env.DB_HOST ?? "",
     port: Number(process.env.DB_PORT ?? 5432),
     name: process.env.DB_NAME ?? "blogdb",
     user: process.env.DB_USER ?? "postgres",
