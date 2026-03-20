@@ -64,14 +64,15 @@ export const updateComment = async (req: Request, res: Response): Promise<void> 
 };
 
 export const deleteComment = async (req: Request, res: Response): Promise<void> => {
-  const comment = await commentRepository.findOne({ where: { id: req.params.commentId }, relations: ["author"] });
+  const comment = await commentRepository.findOne({ where: { id: req.params.commentId }, relations: ["author", "post", "post.author"] });
   if (!comment) {
     throw new HttpError(404, "Comentario no encontrado");
   }
 
-  const isOwner = comment.author.id === req.user!.userId;
+  const isCommentOwner = comment.author.id === req.user!.userId;
+  const isPostOwner = comment.post.author.id === req.user!.userId;
   const isAdmin = req.user!.role === "admin";
-  if (!isOwner && !isAdmin) {
+  if (!isCommentOwner && !isPostOwner && !isAdmin) {
     throw new HttpError(403, "No autorizado para eliminar este comentario");
   }
 
