@@ -33,7 +33,7 @@ app.use(cors({
 app.use(express.json());
 
 app.get("/", (_req: Request, res: Response) => {
-  res.redirect("/api");
+  res.json({ message: "API is running", status: "ok", docs: "/api/docs" });
 });
 
 app.get("/api", (_req: Request, res: Response) => {
@@ -77,4 +77,10 @@ const startServer = async (retries = 5, delay = 3000): Promise<void> => {
   process.exit(1);
 };
 
-startServer();
+const isVercel = process.env.VERCEL === "1";
+
+if (!isVercel) {
+  startServer();
+}
+
+export default app;
