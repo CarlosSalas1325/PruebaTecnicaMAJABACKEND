@@ -77,10 +77,4 @@ const startServer = async (retries = 5, delay = 3000): Promise<void> => {
   process.exit(1);
 };
 
-const isVercel = process.env.VERCEL === "1";
-
-if (!isVercel) {
-  startServer();
-}
-
-export default app;
+startServer();
