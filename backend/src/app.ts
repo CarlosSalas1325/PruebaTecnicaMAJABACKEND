@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "express-async-errors";
 import express from "express";
 import { Request, Response } from "express";
 import cors from "cors";
@@ -10,6 +11,7 @@ import authRoutes from "./modules/auth/auth.routes";
 import postRoutes from "./modules/posts/posts.routes";
 import categoryRoutes from "./modules/categories/categories.routes";
 import usersRoutes from "./modules/users/users.routes";
+import uploadRoutes from "./modules/uploads/uploads.routes";
 import { errorMiddleware } from "./middlewares/error.middleware";
 import { swaggerSpec } from "./docs/swagger";
 
@@ -41,6 +43,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/uploads", uploadRoutes);
 
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ error: "Not Found", message: `Route ${_req.url} not found` });

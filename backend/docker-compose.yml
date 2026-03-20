@@ -5,14 +5,14 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-blogdb}
-      POSTGRES_USER: ${POSTGRES_USER:-bloguser}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-blogpass}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bloguser} -d ${POSTGRES_DB:-blogdb}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-blogdb}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -35,28 +35,7 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev
+    command: sh -c "npm install && npm run migration:run && npm run seed && npm run dev"
 
-<<<<<<< HEAD:backend/docker-compose.yml
-=======
-  web:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: ptmaja-web
-    restart: unless-stopped
-    depends_on:
-      - api
-    environment:
-      PORT: ${FRONTEND_PORT:-4200}
-      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000/api}
-    ports:
-      - "${FRONTEND_PORT:-4200}:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    command: npm run start -- --host 0.0.0.0 --port 4200
-
->>>>>>> 0b68e188da3a9a702f33d0d815d6e830d27e2554:docker-compose.yml
 volumes:
   postgres_data:

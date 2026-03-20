@@ -19,7 +19,7 @@ const parsePagination = (req: Request): { page: number; limit: number; skip: num
 };
 
 export const createPost = async (req: Request, res: Response): Promise<void> => {
-  const data = validateSchema<{ title: string; content: string; status: "draft" | "published"; categoryIds: string[] }>(
+  const data = validateSchema<{ title: string; content: string; status: "draft" | "published"; categoryIds: string[]; imageUrl?: string }>(
     postCreateSchema,
     req.body
   );
@@ -37,6 +37,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
     title: data.title,
     content: data.content,
     status: data.status,
+    imageUrl: data.imageUrl,
     author: user,
     categories
   });
@@ -109,7 +110,7 @@ export const getPostById = async (req: Request, res: Response): Promise<void> =>
 };
 
 export const updatePost = async (req: Request, res: Response): Promise<void> => {
-  const data = validateSchema<{ title?: string; content?: string; status?: "draft" | "published"; categoryIds?: string[] }>(
+  const data = validateSchema<{ title?: string; content?: string; status?: "draft" | "published"; categoryIds?: string[]; imageUrl?: string }>(
     postUpdateSchema,
     req.body
   );
@@ -135,7 +136,8 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
   postRepository.merge(post, {
     title: data.title ?? post.title,
     content: data.content ?? post.content,
-    status: data.status ?? post.status
+    status: data.status ?? post.status,
+    imageUrl: data.imageUrl !== undefined ? data.imageUrl : post.imageUrl
   });
 
   await postRepository.save(post);

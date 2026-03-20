@@ -32,7 +32,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 export const login = async (req: Request, res: Response): Promise<void> => {
   const data = validateSchema<{ email: string; password: string }>(loginSchema, req.body);
 
-  const user = await userRepository.findOne({ where: { email: data.email } });
+  const user = await userRepository
+    .createQueryBuilder("user")
+    .addSelect("user.passwordHash")
+    .where("user.email = :email", { email: data.email })
+    .getOne();
   if (!user) {
     throw new HttpError(401, "Credenciales invalidas");
   }

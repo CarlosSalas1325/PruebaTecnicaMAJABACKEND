@@ -14,5 +14,10 @@ export const env = {
     name: process.env.DB_NAME ?? "blogdb",
     user: process.env.DB_USER ?? "bloguser",
     password: process.env.DB_PASSWORD ?? "blogpass"
+  },
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME ?? "",
+    apiKey: process.env.CLOUDINARY_API_KEY ?? "",
+    apiSecret: process.env.CLOUDINARY_API_SECRET ?? ""
   }
 };

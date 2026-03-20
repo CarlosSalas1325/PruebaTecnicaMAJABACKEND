@@ -28,6 +28,9 @@ export class Post {
   @Column({ type: "text" })
   content!: string;
 
+  @Column({ name: "image_url", type: "varchar", length: 500, nullable: true })
+  imageUrl?: string;
+
   @Column({ type: "varchar", length: 20, default: "draft" })
   status!: "draft" | "published";
 
