@@ -21,7 +21,7 @@ services:
 
   api:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     container_name: ptmaja-api
     restart: unless-stopped
@@ -35,27 +35,9 @@ services:
     ports:
       - "${API_PORT:-3000}:3000"
     volumes:
-      - ./backend:/app
+      - .:/app
       - /app/node_modules
     command: sh -c "npm install && npm run migration:run && npm run seed && npm run dev"
-
-  web:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: ptmaja-web
-    restart: unless-stopped
-    depends_on:
-      - api
-    environment:
-      PORT: ${FRONTEND_PORT:-4200}
-      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000/api}
-    ports:
-      - "${FRONTEND_PORT:-4200}:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    command: sh -c "npm install && npm run start -- --host 0.0.0.0 --port 4200"
 
 volumes:
   postgres_data:

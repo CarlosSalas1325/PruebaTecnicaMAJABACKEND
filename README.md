@@ -2,74 +2,41 @@
 
 Aplicacion fullstack de blog con gestion de publicaciones, categorias, comentarios y autenticacion basada en JWT. Desarrollada como prueba tecnica.
 
----
-
-## Stack tecnologico
-
-| Capa | Tecnologia |
-| --- | --- |
-| Backend | Node.js 20, Express 4, TypeScript 5 |
-| ORM | TypeORM 0.3 |
-| Base de datos | PostgreSQL 16 |
-| Validacion | Zod |
-| Autenticacion | JWT + bcryptjs |
-| Frontend | Angular 18 (standalone components) |
-| Contenedores | Docker + Docker Compose |
+> **Nota:** Este proyecto esta dividido en dos repositorios independientes. Cada uno tiene su propio `docker-compose.yml`, `.env` y documentacion.
 
 ---
 
-## Requisitos previos
+## Repositorios
 
-- **Docker** y **Docker Compose** instalados
-- Puertos disponibles: `3000` (API), `4200` (Frontend), `5432` (PostgreSQL)
-
----
+| Proyecto | Descripcion | Documentacion |
+| --- | --- | --- |
+| **backend/** | API REST con Express, TypeORM y PostgreSQL | [backend/README.md](backend/README.md) |
+| **frontend/** | Frontend con Angular 18 (standalone components) | [frontend/README.md](frontend/README.md) |
 
 ## Inicio rapido
 
-### 1. Clonar el repositorio
+### 1. Levantar el Backend
 
 ```bash
-git clone <url-del-repo>
-cd PT-Maja
-```
-
-### 2. Configurar variables de entorno
-
-```bash
+cd backend
 cp .env.example .env
-```
-
-El archivo `.env.example` trae valores por defecto funcionales. Solo es necesario modificar `JWT_SECRET` en produccion.
-
-### 3. Levantar los servicios
-
-```bash
 docker compose up --build
 ```
 
-Esto levanta tres contenedores:
+### 2. Levantar el Frontend
 
-| Servicio | Puerto | Descripcion |
-| --- | --- | --- |
-| `ptmaja-db` | 5432 | PostgreSQL 16 |
-| `ptmaja-api` | 3000 | API REST (Express) |
-| `ptmaja-web` | 4200 | Frontend (Angular) |
+```bash
+cd frontend
+cp .env.example .env
+docker compose up --build
+```
 
-Al iniciar, el backend automaticamente:
-1. Instala dependencias
-2. Ejecuta migraciones de base de datos
-3. Carga datos semilla (seed)
-4. Arranca el servidor en modo desarrollo (hot reload)
-
-### 4. Acceder
+### 3. Acceder
 
 - **Frontend:** http://localhost:4200
 - **API:** http://localhost:3000/api
 - **Health check:** http://localhost:3000/api/health
-- **Swagger (documentacion API):** http://localhost:3000/api/docs
-
----
+- **Swagger:** http://localhost:3000/api/docs
 
 ## Datos semilla
 
