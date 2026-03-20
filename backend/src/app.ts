@@ -23,7 +23,13 @@ app.use(
     crossOriginResourcePolicy: { policy: "cross-origin" }
   })
 );
-app.use(cors({ origin: env.corsOrigin }));
+const allowedOrigins = env.corsOrigin.split(",").map((o) => o.trim()).filter(Boolean);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin '${origin}' not allowed`));
+  }
+}));
 app.use(express.json());
 
 app.get("/", (_req: Request, res: Response) => {
