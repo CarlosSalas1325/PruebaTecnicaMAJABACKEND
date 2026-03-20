@@ -7,7 +7,7 @@ export const env = {
   port: Number(process.env.PORT ?? 3000),
   jwtSecret: process.env.JWT_SECRET ?? "super-secret-jwt-change-me",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? "24h",
-  corsOrigin: process.env.CORS_ORIGIN ?? "",
+  corsOrigin: process.env.CORS_ORIGIN ?? "https://prueba-tecnica-majafrontend.vercel.app",
   databaseUrl: process.env.DATABASE_URL ?? "",
   db: {
     host: process.env.DB_HOST ?? "",
