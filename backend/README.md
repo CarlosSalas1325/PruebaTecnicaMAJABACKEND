@@ -2,6 +2,44 @@
 
 API REST del blog PT-Maja construida con Express, TypeORM y PostgreSQL.
 
+## Configuracion del archivo `.env`
+
+Antes de levantar cualquier servicio crea el archivo `.env` en este directorio con el siguiente contenido:
+
+```env
+# PostgreSQL
+POSTGRES_DB=blogdb
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=1234
+POSTGRES_PORT=5433
+
+# Backend
+NODE_ENV=development
+PORT=3000
+API_PORT=3000
+JWT_SECRET=super-secret-jwt-change-me
+JWT_EXPIRES_IN=24h
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=blogdb
+DB_USER=postgres
+DB_PASSWORD=1234
+CORS_ORIGIN=http://localhost:4200
+
+# Cloudinary (opcional, necesario para subir imagenes)
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
+O copia el archivo de ejemplo y edita los valores:
+
+```bash
+cp .env.example .env
+```
+
+> **Nota:** Los valores de Cloudinary son opcionales si no vas a usar la subida de imagenes.
+
 ## Stack
 
 | Tecnologia | Version |
